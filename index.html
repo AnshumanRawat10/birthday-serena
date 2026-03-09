@@ -118,7 +118,7 @@ padding:0 10px;transition:height .6s
 </div>
 
 <!-- Waalian Song -->
-<iframe id="music" width="0" height="0" src="https://www.youtube.com/embed/lzKXK9hE7vU?autoplay=1&loop=1&playlist=lzKXK9hE7vU" frameborder="0" allow="autoplay"></iframe>
+<audio id="music" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_8b6a6d0c2c.mp3?filename=romantic-background-11284.mp3"></audio>
 
 <script>
 
@@ -133,10 +133,10 @@ setTimeout(typing,45);
 typing();
 
 function celebrate(){
-
+document.getElementById("music").play();
 // start music
 
-document.getElementById("music").style.display="block";
+
 
 // hearts
 for(let i=0;i<25;i++){
