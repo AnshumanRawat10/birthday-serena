@@ -2,10 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Happy Birthday My Serena Williams</title>
-
 <style>
-
 body{
 margin:0;
 height:100vh;
@@ -20,43 +19,10 @@ color:white;
 text-align:center;
 }
 
-/* balloons */
-
-.balloon{
-position:absolute;
-bottom:-120px;
-width:70px;
-height:90px;
-border-radius:50%;
-animation:float 10s infinite;
-opacity:0.9;
-}
-
-.balloon:nth-child(1){left:10%;background:#ff3b3b;}
-.balloon:nth-child(2){left:25%;background:#ffd93b;animation-duration:12s;}
-.balloon:nth-child(3){left:45%;background:#4dabf7;animation-duration:9s;}
-.balloon:nth-child(4){left:65%;background:#9b5de5;animation-duration:11s;}
-.balloon:nth-child(5){left:85%;background:#2ec4b6;animation-duration:13s;}
-
-@keyframes float{
-0%{transform:translateY(0);}
-100%{transform:translateY(-130vh);}
-}
-
-h1{
-font-size:48px;
-margin-bottom:10px;
-text-shadow:0 5px 20px rgba(0,0,0,0.3);
-}
-
-#message{
-font-size:22px;
-max-width:550px;
-min-height:80px;
-}
+h1{font-size:48px;margin:10px;}
+h2{margin-top:0;font-weight:400}
 
 button{
-margin-top:25px;
 padding:12px 28px;
 border:none;
 border-radius:30px;
@@ -64,100 +30,160 @@ background:white;
 color:#ff4d79;
 font-size:16px;
 cursor:pointer;
-transition:0.3s;
+margin-top:20px;
 }
 
-button:hover{
-transform:scale(1.1);
+#cake{
+width:140px;
+height:120px;
+position:relative;
+margin-top:20px;
+}
+
+.layer{
+position:absolute;
+width:140px;
+height:40px;
+background:#ffb3c6;
+border-radius:10px;
+}
+
+.layer:nth-child(1){bottom:0}
+.layer:nth-child(2){bottom:35px;background:#ffc2d1}
+.layer:nth-child(3){bottom:70px;background:#ffd6e0}
+
+.candle{
+position:absolute;
+width:10px;
+height:35px;
+background:white;
+top:-30px;
+left:65px;
+border-radius:2px;
+}
+
+.flame{
+width:12px;
+height:12px;
+background:orange;
+border-radius:50%;
+position:absolute;
+top:-10px;
+left:-1px;
+animation:flicker 0.3s infinite alternate;
+}
+
+@keyframes flicker{
+from{transform:scale(1)}
+to{transform:scale(1.2)}
+}
+
+.heart{
+position:absolute;
+font-size:20px;
+animation:float 6s linear infinite;
+}
+
+@keyframes float{
+0%{transform:translateY(0);opacity:1}
+100%{transform:translateY(-120vh);opacity:0}
+}
+
+.firework{
+position:absolute;
+width:6px;
+height:6px;
+border-radius:50%;
+animation:explode 1.2s ease-out forwards;
+}
+
+@keyframes explode{
+0%{transform:scale(1);opacity:1}
+100%{transform:scale(8);opacity:0}
+}
+
+#message{
+max-width:550px;
+font-size:22px;
+min-height:60px;
 }
 
 #secret{
 display:none;
-margin-top:20px;
+max-width:500px;
+margin-top:15px;
 font-size:20px;
-max-width:520px;
-animation:fade 2s;
 }
-
-@keyframes fade{
-from{opacity:0;}
-to{opacity:1;}
-}
-
-/* sparkles */
-
-.sparkle{
-position:absolute;
-width:6px;
-height:6px;
-background:white;
-border-radius:50%;
-animation:spark 3s infinite;
-}
-
-@keyframes spark{
-0%{opacity:0; transform:scale(0);}
-50%{opacity:1; transform:scale(1.5);}
-100%{opacity:0; transform:scale(0);}
-}
-
 </style>
 </head>
-
 <body>
-
-<div class="balloon"></div>
-<div class="balloon"></div>
-<div class="balloon"></div>
-<div class="balloon"></div>
-<div class="balloon"></div>
 
 <h1>Happy Birthday 🎂</h1>
 <h2>My Serena Williams</h2>
 
+<div id="cake">
+<div class="layer"></div>
+<div class="layer"></div>
+<div class="layer"></div>
+<div class="candle"><div class="flame"></div></div>
+</div>
+
 <p id="message"></p>
 
-<button onclick="showMessage()">A small message for you 💌</button>
+<button onclick="celebrate()">Cut the Cake 🎉</button>
 
 <div id="secret">
-You might not realize it, but your smile has a way of making everything feel lighter.  
-The world feels a little better knowing someone like you exists in it.  
+Some people just exist… and the world stays the same.
 
-On your birthday, I just hope life gives you the same happiness you bring to others.  
+But then there are people like you — who make everything feel lighter, happier, and a little more beautiful just by being themselves.
 
-Stay amazing. 🌸
+I hope this year gives you countless reasons to smile.
+
+Happy Birthday. 🌸
 </div>
 
 <script>
 
-/* typing message */
-
-let text="Today is not just another day... it's the day someone truly special came into this world.";
+let text="Today the world celebrates someone truly special.";
 let i=0;
-
 function typing(){
 if(i<text.length){
 document.getElementById("message").innerHTML+=text.charAt(i);
 i++;
 setTimeout(typing,45);
-}
-}
-
+}}
 typing();
 
-function showMessage(){
+function celebrate(){
+
+// show message
+
 document.getElementById("secret").style.display="block";
+
+// hearts
+
+for(let i=0;i<25;i++){
+let heart=document.createElement("div");
+heart.className="heart";
+heart.innerHTML="❤️";
+heart.style.left=Math.random()*100+"vw";
+heart.style.bottom="-20px";
+heart.style.animationDuration=(4+Math.random()*3)+"s";
+document.body.appendChild(heart);
 }
 
-/* sparkles */
+// fireworks
 
 for(let i=0;i<40;i++){
-let s=document.createElement("div");
-s.className="sparkle";
-s.style.left=Math.random()*100+"vw";
-s.style.top=Math.random()*100+"vh";
-s.style.animationDelay=Math.random()*3+"s";
-document.body.appendChild(s);
+let fw=document.createElement("div");
+fw.className="firework";
+fw.style.left=Math.random()*100+"vw";
+fw.style.top=Math.random()*60+"vh";
+fw.style.background="hsl("+Math.random()*360+",100%,60%)";
+document.body.appendChild(fw);
+
+setTimeout(()=>{fw.remove()},1200);
+}
 }
 
 </script>
