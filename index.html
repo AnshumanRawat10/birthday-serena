@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Happy Birthday My Serena Williams</title>
+
 <style>
 body{
 margin:0;
@@ -19,7 +20,7 @@ color:white;
 text-align:center;
 }
 
-h1{font-size:48px;margin:10px;}
+h1{font-size:48px;margin:10px}
 h2{margin-top:0;font-weight:400}
 
 button{
@@ -33,89 +34,64 @@ cursor:pointer;
 margin-top:20px;
 }
 
-#cake{
-width:140px;
-height:120px;
-position:relative;
-margin-top:20px;
-}
+/* cake */
+#cake{width:140px;height:120px;position:relative;margin-top:20px}
 
-.layer{
-position:absolute;
-width:140px;
-height:40px;
-background:#ffb3c6;
-border-radius:10px;
-}
-
+.layer{position:absolute;width:140px;height:40px;background:#ffb3c6;border-radius:10px}
 .layer:nth-child(1){bottom:0}
 .layer:nth-child(2){bottom:35px;background:#ffc2d1}
 .layer:nth-child(3){bottom:70px;background:#ffd6e0}
 
-.candle{
+.candle{position:absolute;width:10px;height:35px;background:white;top:-30px;left:65px}
+
+.flame{width:12px;height:12px;background:orange;border-radius:50%;position:absolute;top:-10px;left:-1px;animation:flicker .3s infinite alternate}
+
+@keyframes flicker{from{transform:scale(1)}to{transform:scale(1.2)}}
+
+/* hearts */
+.heart{position:absolute;font-size:20px;animation:float 6s linear infinite}
+
+@keyframes float{0%{transform:translateY(0);opacity:1}100%{transform:translateY(-120vh);opacity:0}}
+
+/* fireworks */
+.firework{position:absolute;width:6px;height:6px;border-radius:50%;animation:explode 1.2s ease-out forwards}
+
+@keyframes explode{0%{transform:scale(1);opacity:1}100%{transform:scale(8);opacity:0}}
+
+#message{max-width:550px;font-size:22px;min-height:60px}
+
+/* envelope */
+#envelope{width:230px;height:140px;background:#fff;position:relative;margin-top:25px;border-radius:6px;color:#333;cursor:pointer}
+
+#envelope:before{
+content:"";
 position:absolute;
-width:10px;
-height:35px;
-background:white;
-top:-30px;
-left:65px;
-border-radius:2px;
+top:0;left:0;width:0;height:0;
+border-left:115px solid transparent;
+border-right:115px solid transparent;
+border-top:70px solid #ff4d79;
+transform-origin:top;
+transition:transform .6s;
 }
 
-.flame{
-width:12px;
-height:12px;
-background:orange;
-border-radius:50%;
+#letter{
 position:absolute;
-top:-10px;
-left:-1px;
-animation:flicker 0.3s infinite alternate;
+bottom:0;left:10px;right:10px;
+height:0;overflow:hidden;background:#fff;
+padding:0 10px;transition:height .6s
 }
 
-@keyframes flicker{
-from{transform:scale(1)}
-to{transform:scale(1.2)}
-}
+#letter p{margin:10px 0;font-size:15px}
 
-.heart{
-position:absolute;
-font-size:20px;
-animation:float 6s linear infinite;
-}
+.open:before{transform:rotateX(180deg)}
+.open #letter{height:120px}
 
-@keyframes float{
-0%{transform:translateY(0);opacity:1}
-100%{transform:translateY(-120vh);opacity:0}
-}
+/* hidden music */
+#music{display:none}
 
-.firework{
-position:absolute;
-width:6px;
-height:6px;
-border-radius:50%;
-animation:explode 1.2s ease-out forwards;
-}
-
-@keyframes explode{
-0%{transform:scale(1);opacity:1}
-100%{transform:scale(8);opacity:0}
-}
-
-#message{
-max-width:550px;
-font-size:22px;
-min-height:60px;
-}
-
-#secret{
-display:none;
-max-width:500px;
-margin-top:15px;
-font-size:20px;
-}
 </style>
 </head>
+
 <body>
 
 <h1>Happy Birthday 🎂</h1>
@@ -132,15 +108,17 @@ font-size:20px;
 
 <button onclick="celebrate()">Cut the Cake 🎉</button>
 
-<div id="secret">
-Some people just exist… and the world stays the same.
-
-But then there are people like you — who make everything feel lighter, happier, and a little more beautiful just by being themselves.
-
-I hope this year gives you countless reasons to smile.
-
-Happy Birthday. 🌸
+<div id="envelope" onclick="openLetter()">
+<div id="letter">
+<p>Some people come into the world and everything stays the same.</p>
+<p>But then there are people like you… who somehow make everything feel a little brighter.</p>
+<p>I hope this year brings you happiness, laughter, and moments that make you smile for no reason.</p>
+<p>Happy Birthday. 🌸</p>
 </div>
+</div>
+
+<!-- Waalian Song -->
+<iframe id="music" width="0" height="0" src="https://www.youtube.com/embed/lzKXK9hE7vU?autoplay=1&loop=1&playlist=lzKXK9hE7vU" frameborder="0" allow="autoplay"></iframe>
 
 <script>
 
@@ -156,12 +134,11 @@ typing();
 
 function celebrate(){
 
-// show message
+// start music
 
-document.getElementById("secret").style.display="block";
+document.getElementById("music").style.display="block";
 
 // hearts
-
 for(let i=0;i<25;i++){
 let heart=document.createElement("div");
 heart.className="heart";
@@ -173,7 +150,6 @@ document.body.appendChild(heart);
 }
 
 // fireworks
-
 for(let i=0;i<40;i++){
 let fw=document.createElement("div");
 fw.className="firework";
@@ -181,12 +157,17 @@ fw.style.left=Math.random()*100+"vw";
 fw.style.top=Math.random()*60+"vh";
 fw.style.background="hsl("+Math.random()*360+",100%,60%)";
 document.body.appendChild(fw);
-
 setTimeout(()=>{fw.remove()},1200);
 }
+}
+
+function openLetter(){
+const env=document.getElementById("envelope");
+env.classList.toggle("open");
 }
 
 </script>
 
 </body>
 </html>
+
